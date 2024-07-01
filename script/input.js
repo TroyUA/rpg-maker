@@ -12,9 +12,9 @@ export class Input {
         this.keyPressed(UP)
       } else if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') {
         this.keyPressed(DOWN)
-      } else if (e.key === 'ArrowLeft' || e.key.toLowerCase('a')) {
+      } else if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') {
         this.keyPressed(LEFT)
-      } else if (e.key === 'ArrowRight' || e.key.toLowerCase('d')) {
+      } else if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') {
         this.keyPressed(RIGHT)
       }
     })
@@ -23,9 +23,9 @@ export class Input {
         this.keyReleased(UP)
       } else if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') {
         this.keyReleased(DOWN)
-      } else if (e.key === 'ArrowLeft' || e.key.toLowerCase('a')) {
+      } else if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') {
         this.keyReleased(LEFT)
-      } else if (e.key === 'ArrowRight' || e.key.toLowerCase('d')) {
+      } else if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') {
         this.keyReleased(RIGHT)
       }
     })
