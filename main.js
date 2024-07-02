@@ -22,24 +22,48 @@ window.addEventListener('load', () => {
           height: 64,
         },
         position: { x: 1 * TILE_SIZE, y: 2 * TILE_SIZE },
+        scale: 0.8,
       })
-      this.input = new Input()
+      this.input = new Input(this)
+
+      this.eventUpdate = false
+      this.eventTimer = 0
+      this.eventInterval = 60
+
+      this.debug = true
     }
-    render(ctx) {
-      this.hero.update()
+
+    toggleDebug() {
+      this.debug = !this.debug
+    }
+
+    render(ctx, deltaTime) {
+      this.hero.update(deltaTime)
       this.world.drawBackground(ctx)
-      this.world.drawGrid(ctx)
+      if (this.debug) this.world.drawGrid(ctx)
       this.hero.draw(ctx)
       this.world.drawForeground(ctx)
+      if (this.debug) this.world.drawCollisionMap(ctx)
+
+      if (this.eventTimer < this.eventInterval) {
+        this.eventTimer += deltaTime
+        this.eventUpdate = false
+      } else {
+        this.eventTimer = this.eventInterval % this.eventTimer
+        this.eventUpdate = true
+      }
     }
   }
 
   const game = new Game()
 
-  function animate() {
+  let lastTime = 0
+  function animate(timeStamp) {
     requestAnimationFrame(animate)
-    ctx.clearRect(0, 0, GAME_WIDHT, GAME_HEIGHT)
-    game.render(ctx)
+    const deltaTime = timeStamp - lastTime
+    lastTime = timeStamp
+
+    game.render(ctx, deltaTime)
   }
   requestAnimationFrame(animate)
 })

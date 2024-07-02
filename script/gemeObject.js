@@ -12,10 +12,8 @@ export class GameObject {
     }
     this.position = position ?? { x: 0, y: 0 }
     this.scale = scale ?? 1
-
     this.destinationPosition = { x: this.position.x, y: this.position.y }
     this.distanceToTravel = { x: 0, y: 0 }
-
     this.width = this.sprite.width * this.scale
     this.halfWidth = this.width / 2
     this.height = this.sprite.height * this.scale
@@ -43,22 +41,25 @@ export class GameObject {
       this.distanceToTravel.y = destinationPosition.y - this.position.y
       distance = Math.hypot(this.distanceToTravel.x, this.distanceToTravel.y)
     }
+
     return distance
   }
 
   draw(ctx) {
-    ctx.fillStyle = 'blue'
-    ctx.fillRect(this.position.x, this.position.y, TILE_SIZE, TILE_SIZE)
-    ctx.strokeStyle = 'yellow'
-    ctx.strokeRect(
-      this.destinationPosition.x,
-      this.destinationPosition.y,
-      TILE_SIZE,
-      TILE_SIZE
-    )
+    if (this.game.debug) {
+      ctx.fillStyle = 'blue'
+      ctx.fillRect(this.position.x, this.position.y, TILE_SIZE, TILE_SIZE)
+      ctx.strokeStyle = 'yellow'
+      ctx.strokeRect(
+        this.destinationPosition.x,
+        this.destinationPosition.y,
+        TILE_SIZE,
+        TILE_SIZE
+      )
+    }
     ctx.drawImage(
       this.sprite.image,
-      this.sprite.x,
+      this.sprite.x * this.sprite.width,
       this.sprite.y * this.sprite.height,
       this.sprite.width,
       this.sprite.height,
