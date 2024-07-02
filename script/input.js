@@ -18,6 +18,7 @@ export class Input {
         this.keyPressed(RIGHT)
       }
     })
+
     window.addEventListener('keyup', (e) => {
       if (e.key === 'ArrowUp' || e.key.toLowerCase() === 'w') {
         this.keyReleased(UP)

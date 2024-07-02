@@ -1,4 +1,4 @@
-import { TILE_SIZE } from './constants'
+import { HALF_TILE, TILE_SIZE } from './constants'
 
 export class GameObject {
   constructor({ game, sprite, position, scale }) {
@@ -15,6 +15,10 @@ export class GameObject {
 
     this.destinationPosition = { x: this.position.x, y: this.position.y }
     this.distanceToTravel = { x: 0, y: 0 }
+
+    this.width = this.sprite.width * this.scale
+    this.halfWidth = this.width / 2
+    this.height = this.sprite.height * this.scale
   }
 
   moveTowards(destinationPosition, speed) {
@@ -43,6 +47,25 @@ export class GameObject {
   }
 
   draw(ctx) {
+    ctx.fillStyle = 'blue'
     ctx.fillRect(this.position.x, this.position.y, TILE_SIZE, TILE_SIZE)
+    ctx.strokeStyle = 'yellow'
+    ctx.strokeRect(
+      this.destinationPosition.x,
+      this.destinationPosition.y,
+      TILE_SIZE,
+      TILE_SIZE
+    )
+    ctx.drawImage(
+      this.sprite.image,
+      this.sprite.x,
+      this.sprite.y * this.sprite.height,
+      this.sprite.width,
+      this.sprite.height,
+      this.position.x + HALF_TILE - this.halfWidth,
+      this.position.y + TILE_SIZE - this.height,
+      this.width,
+      this.height
+    )
   }
 }
